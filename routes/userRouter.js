@@ -14,36 +14,29 @@ const signToken = userID =>{
 }
 
 
-userRouter.post('/register',(req,res)=>{
-    const { username,password,email } = req.body;
-    User.findOne({email},(err,user)=>{
-        if(err)
+userRouter.post('/register', async (req,res)=>{
+    try {
+        const { username,password,email } = req.body;
+        
+        const existingEmail = await User.findOne({email});
+        if(existingEmail)
+            return res.status(201).json({message : "Email is already registered", type: 'warning'});
+        
+        const existingUsername = await User.findOne({username});
+        if(existingUsername)
+            return res.status(201).json({message : "Username is already taken", type:'warning'});
+        
+        const newUser = new User({username,password,email});
+        await newUser.save();
+        res.status(201).json({message : "Account successfully created", type:'success'});
+    } catch(err) {
+        if(err.message && err.message.includes('User validation failed: username')){
+            res.status(201).json({message : 'username length must be between 4 and 15 letters', type:'warning'});
+        }else{
+            console.error('Register error:', err);
             res.status(500).json({message : "Error has occured", msgError: true});
-        if(user)
-            res.status(201).json({message : "Email is already registered", type: 'warning'});
-        else{
-            User.findOne({username},(err,user)=>{
-                if(err)
-                    res.status(500).json({message : "Error has occured", msgError: true});
-                if(user)
-                    res.status(201).json({message : "Username is already taken", type:'warning'});
-                else{
-                    const newUser = new User({username,password,email});
-                    newUser.save(err=>{
-                        if(err){
-                            if(err.message.includes('User validation failed: username')){
-                                res.status(201).json({message : 'username length must be between 4 and 15 letters', type:'warning'});
-                            }else{
-                            res.status(500).json({message : {msgBody : "Error has occured", msgError: true}});
-                            }
-                        }else
-                            res.status(201).json({message : "Account successfully created", type:'success'});
-                    });
-                }
-            });
         }
-    })
-    
+    }
 });
 
 

@@ -15,29 +15,29 @@ const cookieExtractor = req =>{
 passport.use(new JwtStrategy({
     jwtFromRequest : cookieExtractor,
     secretOrKey : "NoobCoder"
-},(payload,done)=>{
-    User.findById({_id : payload.sub},(err,user)=>{
-        if(err)
-            return done(err,false);
+}, async (payload,done)=>{
+    try {
+        const user = await User.findById(payload.sub);
         if(user)
             return done(null,user);
         else
             return done(null,false);
-    });
+    } catch(err) {
+        return done(err,false);
+    }
 }));
 
 // authenticated local strategy using username and password
-passport.use(new LocalStrategy({ usernameField:'email'},(email,password,done)=>{
-
-    User.findOne({email},(err,user)=>{
-        // something went wrong with database
-        if(err)
-            return done(err);
+passport.use(new LocalStrategy({ usernameField:'email'}, async (email,password,done)=>{
+    try {
+        const user = await User.findOne({email});
         // if no user exist
         if(!user)
             return done(null,false,'User not found');
         // check if password is correct
         user.comparePassword(password,done);
-        
-    });
+    } catch(err) {
+        // something went wrong with database
+        return done(err);
+    }
 }));

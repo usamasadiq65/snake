@@ -9,10 +9,19 @@ const userRouter = require('./routes/userRouter');
 const scoreRouter = require('./routes/scoreRouter');
 
 require('dotenv').config();
-const uri = process.env.ATLAS_URI
-mongoose.connect(uri,{ useNewUrlParser: true,useCreateIndex: true,useUnifiedTopology: true});
-const connection = mongoose.connection
-connection.once('open',()=>console.log('mongodb database'))
+// Support both MONGO_URI (used in .env) and ATLAS_URI (older config)
+const uri = process.env.MONGO_URI || process.env.ATLAS_URI;
+if (!uri) {
+  console.error('MongoDB connection string is missing. Set MONGO_URI or ATLAS_URI in your .env');
+  process.exit(1);
+}
+
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('mongodb database connected'))
+  .catch(err => {
+    console.error('Failed to connect to MongoDB:', err);
+    process.exit(1);
+  });
 
 
 app.use(cors());

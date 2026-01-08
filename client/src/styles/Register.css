@@ -1,83 +1,149 @@
 .register{
-    position: absolute;
-    height:350px;
-    width:300px;
-    top: 50px;
-    left: calc(50% - 175px);
-    z-index:99;
-    background-color:#351818;
-    padding: 30px;
-    padding-top: 10px;
-    overflow: hidden !important;
-    animation: comein 1s linear
+  position: absolute;
+  min-height: 540px;
+  width: 400px;
+  max-width: 90vw;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: slideIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideIn {
+  from{
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.8);
+  }
+  to{
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
 }
 
 .register h1{
   margin-bottom: 30px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  letter-spacing: 1px;
 }
 
 .register .form {
-  width: 90%;
-  max-width: 360px;
+  width: 100%;
   margin: auto;
-  margin-top: 10px;
   text-align: center;
-  font-family: 'Roboto';
+  font-family: 'Roboto', 'Montserrat', sans-serif;
   position: relative;
 }
 
-.register .form img{
-  height: 100px;
-  width: 100px;
-  top: 80px;
-  right: -80px;
-  position: absolute
+.register .form label{
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #fff;
+  display: block;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: 8px;
+  margin-top: 18px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-.register.form h1 {
-  color: #00BCD4;
+.register .form input{
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
-.register.form .btn {
-  margin: 20px auto;
+.register .form input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.register.form p {
-  font-style: italic;
-}
-
-.register.form a {
-  color: #00BCD4;
-  cursor: pointer;
-}
-
-.register .form .input{
-  margin:10px;
+.register .form input:focus{
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 .register .form button{
-  margin:10px;
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 20px rgba(118, 75, 162, 0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.register .form button:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(118, 75, 162, 0.6);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.register .form button:active{
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+}
+
+.register .form p{
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
 }
 
 .register .form p span{
-  color: yellow;
+  color: #ffd700;
   cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: all 0.2s ease;
 }
 
-@media (max-height: 700px) {
+.register .form p span:hover{
+  color: #ffed4e;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+@media (max-height: 750px) {
   .register{
-    height: 350px;
-    overflow: scroll;
+    height: auto;
+    max-height: 90vh;
+    overflow-y: auto;
+    top: 50%;
   }
 }
-/* .MuiTextField-root{
-  background-color:rgba(255, 255, 255, 0.04);
-}
 
-.MuiInput-underline:hover:not(.Mui-disabled)::before{
-  border-color: white !important;
+@media (max-width: 500px) {
+  .register{
+    width: 90vw;
+    padding: 30px 25px;
+  }
+  
+  .register h1{
+    font-size: 1.8rem;
+  }
 }
-
-.Mui-focused{
-  color:white !important
-} */
