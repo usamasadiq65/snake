@@ -1,13 +1,13 @@
 # MERN Stack Snake game.
 
-<img src="githubImg/snake-game.jpg"/>
+<img src="public/images/snake.png" alt="snake/>
 
 ## Description
 
 
 You can register and sign to play a simple snake game;you can also check top 10 scores of everyone who played the game.
 
-Live demo on https://mern-snake-game.herokuapp.com/
+<!-- Live demo on https://mern-snake-game.herokuapp.com/ -->
 
 ## Technologies & Tools
 
