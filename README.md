@@ -1,6 +1,6 @@
 # MERN Stack Snake game.
 
-<img src="public/images/snake.png" alt="snake/>
+<img src="public/images/snake.png" alt="snake" />
 
 ## Description
 
